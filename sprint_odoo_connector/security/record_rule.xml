@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="odoo_sprint_connector_rule" model="ir.rule">
+    <field name="name">Sprint Access</field>
+    <field name="model_id" ref="model_sprint_configuration"/>
+    <field name="domain_force">[]</field>
+    <field name="groups" eval="[(4, ref('sprint_odoo_connector.group_sprint_odoo_connector_user'))]"/>
+</record>
+
+
+</odoo>

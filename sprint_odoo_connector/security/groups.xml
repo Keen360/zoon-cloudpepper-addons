@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="group_sprint_odoo_connector_user" model="res.groups">
+    <field name="name">Odoo Sprint Connector</field>
+</record>
+
+
+
+</odoo>

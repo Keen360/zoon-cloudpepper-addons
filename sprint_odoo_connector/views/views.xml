@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--views-->
+        <record id="view_sprint_configuration_form" model="ir.ui.view">
+            <field name="name">sprint.configuration.form</field>
+            <field name="model">sprint.configuration</field>
+            <field name="arch" type="xml">
+                <form string="Sprint Configuration">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <!-- API Settings Tab -->
+                            <page string="API Status">
+                                <field name="setting_ids" options="{'no_create': False, 'no_create_edit':False}">
+                                    <tree options="{'no_open': True, 'no_create': True}">
+                                        <field name="status_code" options="{'no_open': True, 'no_create': True,'no_quick_create': True}"/>
+                                        <field name="message" options="{'no_open': True, 'no_create': True,'no_quick_create': True}"/>
+                                        <field name="partner" options="{'no_open': True, 'no_create': True,'no_quick_create': True}"/>
+                                        <field name="date_time" options="{'no_open': True, 'no_create': True,'no_quick_create': True}"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                            <!-- API Endpoints Tab -->
+                            <page string="API Endpoints">
+                                <group>
+                                    <field name="create_endpoint" force_save="1"/>
+                                    <field name="update_endpoint" force_save="1"/>
+                                </group>
+                            </page>
+
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sprint_configuration_tree" model="ir.ui.view">
+            <field name="name">sprint.configuration.tree</field>
+            <field name="model">sprint.configuration</field>
+            <field name="arch" type="xml">
+                <tree string="Sprint Configurations">
+                    <field name="name"/>
+                    <field name="create_endpoint"/>
+                    <field name="update_endpoint"/>
+                    <!--            <field name="message_type"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!--    res partner form view-->
+        <record id="view_partner_form_sprint" model="ir.ui.view">
+            <field name="name">res.partner.form.sprint</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="sync_with_sprint" type="object" string="Sync With Sprint" class="btn-primary"
+                            icon="fa-refresh"
+                            groups="sprint_odoo_connector.group_sprint_odoo_connector_user"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <group>
+                        <field name="customer_code" placeholder="e.g. GEO2342"/>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--            res partner tree view-->
+        <record id="view_partner_tree_sprint" model="ir.ui.view">
+            <field name="name">res.partner.tree.sprint</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//tree" position="inside">
+                    <header>
+                        <button name="sync_with_sprint" type="object" string="Sync With Sprint" class="btn-primary"
+                                icon="fa-refresh" groups="sprint_odoo_connector.group_sprint_odoo_connector_user"/>
+                    </header>
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--action for sprint configuration menu-->
+        <record id="action_sprint_configuration" model="ir.actions.act_window">
+            <field name="name">Sprint Configuration</field>
+            <field name="res_model">sprint.configuration</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    Use this menu to configure the Sprint API settings for synchronization.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_sprint_configuration"
+                  name="Sprint Configuration"
+                  parent="contacts.res_partner_menu_config"
+                  action="action_sprint_configuration"
+                  sequence="10"
+                  groups="sprint_odoo_connector.group_sprint_odoo_connector_user"
+        />
+    </data>
+
+</odoo>
+
+
